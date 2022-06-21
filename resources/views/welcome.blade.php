@@ -17,19 +17,7 @@
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+     
         <div class="container">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
             <div class="col">
@@ -73,7 +61,7 @@
               <div class="card-header">
                 Count of active products which don't belong to any user
               </div>
-              <div class="card-body">
+              <div class="card-body text-center">
                 <blockquote class="blockquote mb-0">
                   <p>{{$notbelonguser}}</p>
                 </blockquote>
@@ -115,10 +103,29 @@
                      <span>{{$user->name}}</span>
                        <?php $amount = 0  ?>
                            @foreach($user->attactuser as $attach)
+                           @if($attach->product->status == '1')
                              <?php $amount += $attach->product->amount * $attach->quantity; ?>
+                             @endif
                            @endforeach
                        ${{$amount}}
+                       <br>
                   @endforeach
+                </blockquote>
+              </div>
+            </div>
+            </div>
+            <div class="col mt-3">
+             <div class="card bg-primary|secondary|success|danger|warning|info|light|dark text-primary|secondary|success|danger|warning|info|light|dark">
+              <div class="card-header">
+                Exchange Rates
+              </div>
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                   EUR = 1 
+                   <br>
+                   USD  = {{ $rates['USD'] }}
+                   <br>
+                   RON  = {{ $rates['RON'] }}
                 </blockquote>
               </div>
             </div>
